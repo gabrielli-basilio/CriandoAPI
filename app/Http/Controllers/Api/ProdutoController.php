@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ProdutoResource;
 use App\Models\Produto;
 use Illuminate\Http\Request;
+use App\Services\ProdutoService;
 
 class ProdutoController extends Controller
 {
     /**
      * Display a listing of the resource.
-     */
+    */
     public function index()
     {
         return ProdutoResource::collection(Produto::latest()->paginate(10));
@@ -19,7 +20,7 @@ class ProdutoController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     */
+    */
     public function store(Request $request)
     {
         $dados = $request->validate([
@@ -38,7 +39,7 @@ class ProdutoController extends Controller
 
     /**
      * Display the specified resource.
-     */
+    */
     public function show(Produto $produto)
     {
         return new ProdutoResource($produto);
@@ -46,8 +47,8 @@ class ProdutoController extends Controller
 
     /**
      * Update the specified resource in storage.
-     */
-    public function update(Request $request, Produto $produto)
+    */
+    public function update(Request $request, Produto $produto, ProdutoService $service)
     {
         $dados = $request->validate([
             'nome' => ['sometimes', 'string', 'max:255'],
@@ -56,7 +57,7 @@ class ProdutoController extends Controller
             'quantidade' => 'sometimes|integer|min:0',
         ]);
 
-        $produto->update($dados);
+        $produto = $service->update($produto, $dados);
 
         return new ProdutoResource($produto);
     }
