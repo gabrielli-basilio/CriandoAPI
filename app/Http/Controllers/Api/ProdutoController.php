@@ -10,6 +10,9 @@ use App\Services\ProdutoService;
 
 class ProdutoController extends Controller
 {
+
+    public function __construct(private ProdutoService $service){}
+
     /**
      * Display a listing of the resource.
     */
@@ -26,6 +29,7 @@ class ProdutoController extends Controller
         $dados = $request->validate([
             'nome' => ['required', 'string', 'max:255'],
             'descricao' => 'nullable|string',
+            'preco_custo' => ['required', 'numeric', 'min:0'],
             'preco' => ['required', 'numeric', 'min:0'],
             'quantidade' => 'sometimes|integer|min:0',
         ]);
@@ -57,9 +61,15 @@ class ProdutoController extends Controller
             'quantidade' => 'sometimes|integer|min:0',
         ]);
 
-        $produto = $service->update($produto, $dados);
+        //Cria o Produto Model
+        $produto = $this->service->create($dados);
 
+        //Retorna um novo recurso a cada requisição
         return new ProdutoResource($produto);
+        
+        /* ATIVIDADE SERVICE
+            $produto = $service->update($produto, $dados);
+        */
     }
 
     /**
