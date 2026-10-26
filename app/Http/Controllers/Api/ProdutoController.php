@@ -57,6 +57,7 @@ class ProdutoController extends Controller
         $dados = $request->validate([
             'nome' => ['sometimes', 'string', 'max:255'],
             'descricao' => 'nullable|string',
+            'preco_custo' => ['sometimes', 'numeric', 'min:0'],
             'preco' => ['sometimes', 'numeric', 'min:0'],
             'quantidade' => 'sometimes|integer|min:0',
         ]);

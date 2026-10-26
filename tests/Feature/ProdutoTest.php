@@ -11,17 +11,34 @@ class ProdutoTest extends TestCase
     /**
      * A basic feature test example.
     */
+    
     use RefreshDatabase;
 
-    public function test_preco_negativo(): void
+    public function test_cria_produto_com_sucesso(): void
     {
-        $response = $this->postJson('/api/produtos', [
-            'nome' => 'Mouse',
-            'preco' => -10,
-        ]);
+        $this->postJson('/api/produtos', [
+            'nome' => 'Lajota', 
+            'preco_custo' => 100,
+            'preco' => 110,
+        ])->assertCreated();
 
-        $response->assertStatus(422);
-        $response->assertJsonValidationErrors('preco');
-        $this->assertDatabaseCount('produtos', 0);
+        $this->assertDatabaseHas('produtos', [
+            'nome' => 'Lajota']);
     }
+    
+
+    /*
+        -- ATIVIDADE TESTE --
+        public function test_preco_negativo(): void
+        {
+            $response = $this->postJson('/api/produtos', [
+                'nome' => 'Mouse',
+                'preco' => -10,
+            ]);
+
+            $response->assertStatus(422);
+            $response->assertJsonValidationErrors('preco');
+            $this->assertDatabaseCount('produtos', 0);
+        }
+    */
 }

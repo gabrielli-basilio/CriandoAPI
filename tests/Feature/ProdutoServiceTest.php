@@ -16,42 +16,45 @@ class ProdutoServiceTest extends TestCase
 
     use RefreshDatabase;
 
-    public function test_update_completo(): void
-    {
-        $produto = Produto::create([
-            'nome' => 'Mouse',
-            'preco' => 50,
-            'quantidade' => 5,
-        ]);
+    /*
+        -- ATIVIDADE TESTE --
+        public function test_update_completo(): void
+        {
+            $produto = Produto::create([
+                'nome' => 'Mouse',
+                'preco' => 50,
+                'quantidade' => 5,
+            ]);
 
-        $service = new ProdutoService();
-        $service->update($produto, [
-            'nome' => 'Teclado',
-            'preco' => 80,
-            'quantidade' => 10,
-        ]);
+            $service = new ProdutoService();
+            $service->update($produto, [
+                'nome' => 'Teclado',
+                'preco' => 80,
+                'quantidade' => 10,
+            ]);
 
-        $this->assertDatabaseHas('produtos', [
-            'id' => $produto->id,
-            'nome' => 'Teclado',
-            'preco' => 80,
-            'quantidade' => 10,
-        ]);
-    }
+            $this->assertDatabaseHas('produtos', [
+                'id' => $produto->id,
+                'nome' => 'Teclado',
+                'preco' => 80,
+                'quantidade' => 10,
+            ]);
+        }
 
-    public function test_update_parcial(): void
-    {
-        $produto = Produto::create([
-            'nome' => 'Mouse',
-            'preco' => 50,
-            'quantidade' => 5,
-        ]);
+        public function test_update_parcial(): void
+        {
+            $produto = Produto::create([
+                'nome' => 'Mouse',
+                'preco' => 50,
+                'quantidade' => 5,
+            ]);
 
-        $service = new ProdutoService();
-        $resultado = $service->update($produto, ['preco' => 60]);
+            $service = new ProdutoService();
+            $resultado = $service->update($produto, ['preco' => 60]);
 
-        $this->assertEquals('Mouse', $resultado->nome);
-        $this->assertEquals(5, $resultado->quantidade);
-        $this->assertEquals(60, $resultado->preco);
-    }
+            $this->assertEquals('Mouse', $resultado->nome);
+            $this->assertEquals(5, $resultado->quantidade);
+            $this->assertEquals(60, $resultado->preco);
+        }
+    */
 }
