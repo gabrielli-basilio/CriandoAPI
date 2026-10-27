@@ -16,11 +16,17 @@ class ProdutoController extends Controller
     /**
      * Display a listing of the resource.
     */
-    public function index()
+    public function index(Request $request)
     {
-        return ProdutoResource::collection(Produto::latest()->paginate(10));
-    }
 
+        $filtros = [ 
+            'search' => $request->query('search')
+
+        ];
+
+        return ProdutoResource::collection($this->service->listar($filtros));
+
+    }
     /**
      * Store a newly created resource in storage.
     */
