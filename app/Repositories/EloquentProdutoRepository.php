@@ -28,8 +28,11 @@ class EloquentProdutoRepository implements ProdutoRepositoryInterface
 
         return Produto::query()
             ->when($filtros['search'] ?? null,
-            fn($query, $pedaco) => 
-            $query->where('nome', 'LIKE', "%
-            {$pedaco}%"))->paginate($porPagina); 
+                fn($query, $pedaco) => $query->where('nome', 'LIKE', "%{$pedaco}%"))
+            ->when($filtros['preco_min'] ?? null,
+                fn($query, $min) => $query->where('preco', '>=', $min))
+            ->when($filtros['preco_max'] ?? null,
+                fn($query, $max) => $query->where('preco', '<=', $max))
+            ->paginate($porPagina);
     }
 }

@@ -68,7 +68,7 @@ class ProdutoController extends Controller
             'quantidade' => 'sometimes|integer|min:0',
         ]);
 
-        //Cria o Produto Model
+        // Cria o Produto Model
         $produto = $this->service->create($dados);
 
         //Retorna um novo recurso a cada requisição
