@@ -70,7 +70,7 @@ class ProdutoController extends Controller
         ]);
 
         // Cria o Produto Model
-        $produto = $this->service->create($dados);
+        $produto->update($dados);
 
         //Retorna um novo recurso a cada requisição
         return new ProdutoResource($produto);
